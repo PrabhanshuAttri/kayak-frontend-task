@@ -1,0 +1,87 @@
+@font-face {
+  font-family: 'Forza';
+  src: url('Forza-Black.eot');
+  src: local('Forza Black'), local('Forza-Black'),
+  url('Forza-Black.eot?#iefix') format('embedded-opentype'),
+  url('Forza-Black.woff') format('woff'),
+  url('Forza-Black.ttf') format('truetype'),
+  url('Forza-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+}
+
+body {
+  position: relative;
+  min-height: 100vh;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+header {
+  background-image: linear-gradient(-225deg,#ff690f 0%,#ee4719 100%);
+}
+
+a {
+  text-decoration: none;
+  outline: none;
+}
+
+header a {
+  color: #fff;
+  font-weight: 900;
+}
+
+footer {
+  font-size: 0.8em;
+  padding: 2em 0;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  color: #fff;
+  background-color: #212a30;
+}
+
+.header-wrapper {
+  min-height: 62px;
+}
+
+.logo {
+  margin-right: 1em;
+}
+
+.container {
+  height: inherit;
+  max-width: 80em;
+  display: flex;
+  flex-direction: column;
+  width: 70em;
+  margin: 0 auto;
+}
+
+.container.row {
+  flex-direction: row;
+}
+
+.container.align-center {
+  align-items: center;
+}
+
+.container.justify-center {
+  justify-content: center;
+}
+
+@media (min-width: 20em) {
+  .container {
+    width: 20em;
+  }
+}
+
+@media (min-width: 48em) {
+  .container {
+    width: 48em;
+  }
+}
+
+
+h1 {
+  font-family: Forza, 'Helvetica Bold', Helvetica, Arial, sans-serif;
+}
