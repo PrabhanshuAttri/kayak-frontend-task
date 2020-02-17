@@ -1,0 +1,47 @@
+{
+  "name": "kayak",
+  "version": "1.0.0",
+  "description": "KAYAK internship UI task",
+  "main": "server.js",
+  "scripts": {
+    "start": "http-server -c31536000 ./solution",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PrabhanshuAttri/kayak-frontend-task.git"
+  },
+  "keywords": [
+    "Python",
+    "Javascript",
+    "HTML5",
+    "CSS3",
+    "Node.js",
+    "React.js",
+    "Java",
+    "PHP",
+    "MySQL",
+    "LESS",
+    "SCSS",
+    "Android",
+    "AWS",
+    "git",
+    "UNIX",
+    "Jira",
+    "Agile",
+    "Scrum",
+    "Confluence",
+    "UI",
+    "Software",
+    "Engineering"
+  ],
+  "author": "PrabhanshuAttri",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/PrabhanshuAttri/kayak-frontend-task/issues"
+  },
+  "homepage": "https://github.com/PrabhanshuAttri/kayak-frontend-task#readme",
+  "dependencies": {
+    "http-server": "^0.12.1"
+  }
+}

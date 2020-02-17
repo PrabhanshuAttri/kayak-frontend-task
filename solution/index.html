@@ -5,12 +5,11 @@
   <meta charset="UTF-8">
 
   <meta name="description" content="KAYAK internship UI task">
-  <meta name="keywords" content="Python, Javascript, HTML5, CSS3, Node.js, React.js, Java, PHP, MySQL, LESS, SCSS, Android, AWS, git, UNIX, Jira, Agile, Scrum, Confluence, UI, Software Engineering, ">
+  <meta name="keywords" content="Python, Javascript, HTML5, CSS3, Node.js, React.js, Java, PHP, MySQL, LESS, SCSS, Android, AWS, git, UNIX, Jira, Agile, Scrum, Confluence, UI, Software Engineering">
   <meta name="author" content="Prabhanshu Attri">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="noindex" />
-  <link rel='canonical' href='https://www.kayak.com/' />
+  <link rel='canonical' href='http://localhost:8080/' />
 
   <meta property='og:type' content='website' />
   <meta property='og:title' content='Search Vacation Packages on KAYAK' />
@@ -30,14 +29,15 @@
 
   <link rel='shortcut icon' type='image/png' href='./assets/favicon.png'/>
 
+  <link rel="preload" href="./js/vanilla.js" as="script" />
   <link rel="preload" href="./css/Forza-Black.woff" as="font" type="font/woff" crossorigin="anonymous" />
   <link rel="preload" href="./css/Forza-Black.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
-  <link rel="stylesheet" type="text/css" href="./css/normalize.css" />
-  <link rel="stylesheet" type="text/css" href="./css/main.css" />
+  <link rel="stylesheet" type="text/css" href="./css/normalize.css" defer />
+  <link rel="stylesheet" type="text/css" href="./css/main.css" defer />
 </head>
 <body>
   <header>
-    <div class='container row align-center header-wrapper' role="grid">
+    <div class='container row align-center header-wrapper'>
       <a href='/' tabindex="0" class='mr-1'>
         <img src='./assets/kayak-logo.svg' alt='KAYAK Logo' />
       </a>
@@ -53,12 +53,12 @@
     <section id='content' class='container hidden' role="region">
       <h2 class='title'>All the best tours, all in one place.</h2>
       <form id='search-form' aria-label='Search Form' class='filters flex-grid'>
-        <label for="season" class='hidden'>Season</label>
-        <select id="season" class='col-3 dropdown' disabled></select>
-        <label for="category" class='hidden'>Category</label>
-        <select id="category" class='col-3 dropdown' disabled></select>
-        <label for="destination" class='hidden'>Destination</label>
-        <select id="destination" class='col-3 dropdown' disabled></select>
+        <label for="season" id='season-label' class='hidden'>Season</label>
+        <select id="season" class='col-3 dropdown' aria-labelledby="season-label" disabled></select>
+        <label for="category" id='category-label' class='hidden'>Category</label>
+        <select id="category" class='col-3 dropdown' aria-labelledby="category-label" disabled></select>
+        <label for="destination" id='destination-label' class='hidden'>Destination</label>
+        <select id="destination" class='col-3 dropdown' aria-labelledby="destination-label" disabled></select>
         <button id='submit' class="search" type='submit' aria-label="Search" role="button" tabindex="0">
           <img class='search-icon' src='/assets/search-icon.svg' title='Search' />
         </button>
