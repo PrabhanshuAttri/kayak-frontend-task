@@ -1,11 +1,10 @@
-import DomElement, { DropdownElement } from './DomElement.js';
-import Store from './Store.js';
+import Store from './modules/Store';
+import ElementClass from './modules/DropdownElement';
 
-const loaderEle = new DomElement('loader');
-const contentEle = new DomElement('content');
+const {DomElement, DropdownElement} = ElementClass;
 
 const isIEBrowser = () => {
-  return (!document.attachEvent || typeof document.attachEvent === "undefined" ? false : true);
+  return (!document.attachEvent || typeof (document.attachEvent) === "undefined" ? false : true);
 }
 
 const getAssetPath = (res) => {
@@ -22,6 +21,8 @@ const fetchData = async () => {
 }
 
 const onPageLoad = () => {
+  const loaderEle = new DomElement('loader');
+  const contentEle = new DomElement('content');
   fetchData().then((data) => {
     const store = new Store(data);
 
@@ -84,7 +85,7 @@ const onPageLoad = () => {
 }
 
 const addEventToDocument = (function(onPageLoad) {
-  if(onPageLoad && typeof onPageLoad === 'function'){
+  if(onPageLoad && typeof (onPageLoad) === 'function'){
     if(!isIEBrowser()) {
       document.addEventListener("DOMContentLoaded", onPageLoad);
     } else {

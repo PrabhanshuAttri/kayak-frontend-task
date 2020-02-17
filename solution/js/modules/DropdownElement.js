@@ -1,67 +1,6 @@
-class DomElement {
-  constructor(id) {
-    this.element = document.getElementById(id);
-  }
+import DomElement from './DomElement';
 
-  addClass(className) {
-    this.element.classList.add(className);
-  }
-
-  removeClass(className) {
-    this.element.classList.remove(className);
-  }
-
-  show() {
-    this.removeClass('hidden');
-  }
-
-  hide() {
-    this.addClass('hidden');
-  }
-
-  setText(text) {
-    this.element.innerHTML = text;
-  }
-
-  addEvent(event, callback) {
-    if(typeof callback === 'function') {
-      this.element.addEventListener(event, callback);
-    }
-  }
-
-  onClick(callback) {
-    this.addEvent('click', callback);
-  }
-
-  addChild(ch) {
-    this.element.appendChild(ch)
-  }
-
-  removeContent() {
-    this.element.innerHTML = '';
-  }
-
-  setAttribute(attributes, element) {
-    const ele = element ? element : this.element;
-    if(attributes) {
-      const attributeKeys = Object.keys(attributes);
-      for(let i = 0; i < attributeKeys.length; i++) {
-        ele.setAttribute(attributeKeys[i], attributes[attributeKeys[i]]);
-      }
-    }
-  }
-
-  setStyle(style) {
-    if(style) {
-      const styleKeys = Object.keys(style);
-      for(let i = 0; i < styleKeys.length; i++) {
-        this.element.style[styleKeys[i]] = style[styleKeys[i]];
-      }
-    }
-  }
-}
-
-export class DropdownElement extends DomElement {
+class DropdownElement extends DomElement {
   constructor(id) {
     super(id);
     this.name = id.charAt(0).toUpperCase() + id.slice(1);
@@ -100,8 +39,8 @@ export class DropdownElement extends DomElement {
     this.removeAllOptions();
     for(let i = 0; i < options.length; i++) {
       const item = itemParser(options[i]);
-      const itemName = typeof item === 'string' ? item : item.text;
-      const value = typeof item === 'string' ? item : item.value;
+      const itemName = typeof (item) === 'string' ? item : item.text;
+      const value = typeof (item) === 'string' ? item : item.value;
       this.addOption(itemName, { value, attributes: { ['data-value']: value }});
     }
     if(options.length > 0) {
@@ -137,4 +76,7 @@ export class DropdownElement extends DomElement {
   }
 }
 
-export default DomElement;
+export default {
+  DomElement,
+  DropdownElement
+};
