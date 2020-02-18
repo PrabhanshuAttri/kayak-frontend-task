@@ -8,11 +8,11 @@ const isIEBrowser = () => {
 }
 
 const getAssetPath = (res) => {
-  return `/assets/${res}`;
+  return `/dist/assets/images/${res}`;
 }
 
 const fetchData = async () => {
-  return fetch('/assets/tour-data.json').then((response) => {
+  return fetch('/dist/assets/tour-data.json').then((response) => {
     if (response.status !== 200) {
       throw `Looks like there was a problem. Status Code: ${response.status}`;
     }
@@ -34,7 +34,7 @@ const onPageLoad = () => {
     const categoryEle = new DropdownElement('category');
     const destinationEle = new DropdownElement('destination');
 
-    bannerEle.setStyle({backgroundImage: `url(${getAssetPath('default-cover.jpg')})`});
+    bannerEle.setStyle({backgroundImage: `url(${getAssetPath('default-cover.webp')})`});
     loaderEle.hide();
     contentEle.show();
 
@@ -53,6 +53,9 @@ const onPageLoad = () => {
         itemParser: (item) => {
           if(item) {
             const { id, name, country } = item;
+            const img = new Image();
+            img.src = getAssetPath(`${name.toLowerCase().replace(' ', '-')}-${id}.webp`)
+            
             return {
               value: id,
               text: `${name}, ${country}`,
@@ -66,11 +69,21 @@ const onPageLoad = () => {
       const dest = store.getDestinationInfo(selectedValue);
       if(dest) {
         const { id, name, country } = dest;
-        const bannerPath = getAssetPath(`${name.toLowerCase().replace(' ', '-')}-${id}.jpg`);
+        const bannerPath = getAssetPath(`${name.toLowerCase().replace(' ', '-')}-${id}.webp`);
         bannerTextEle.setText(`${name}, ${country}`);
         bannerEle.setStyle({backgroundImage: `url(${bannerPath})`});
       }
-    })
+    });
+
+    // prefetch images 
+    // disabling
+    /*
+    const prefetchImageArr = store.getImageList();
+    for(let i = 0; i < prefetchImageArr.length; i++) {
+      const img = new Image();
+      img.src = getAssetPath(prefetchImageArr[i]);
+    }
+    */
   }).catch((err) => {
     console.error('err', err);
 

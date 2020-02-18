@@ -5,18 +5,23 @@ const uglify = require('gulp-uglify');
 const sourcemaps = require('gulp-sourcemaps');
 const concat = require('gulp-concat');
 const webpackStream = require('webpack-stream');
+const webp = require('gulp-webp');
 
 const baseDir = 'solution/';
 const paths = {
   src: {
-    js: `${baseDir}js/**/*.js`
+    js: `${baseDir}js/**/*.js`,
+    images: `${baseDir}assets/images/*.{jpg,png}`
   },
   dist: {
-    js: `${baseDir}dist/js`
+    js: `${baseDir}dist/js`,
+    images: `${baseDir}dist/assets/images`,
   }
 }
 
-gulp.task('default', () => {
+const images = () => gulp.src(paths.src.images).pipe(webp()).pipe(gulp.dest(paths.dist.images));
+
+const js = () => {
   const options = {
     mode: "development"
   };
@@ -30,4 +35,12 @@ gulp.task('default', () => {
   .pipe(concat('vanilla.js'))
   .pipe(sourcemaps.write('.'))
   .pipe(gulp.dest(paths.dist.js))
-});
+};
+
+const copyFiles = () => gulp.src([
+  `${baseDir}assets/icons/**/*`,
+  `${baseDir}assets/**/*.svg`,
+  `${baseDir}assets/**/*.json`,
+  ]).pipe(gulp.dest(`${baseDir}dist/assets`));
+
+exports.default = gulp.parallel(images, js, copyFiles);

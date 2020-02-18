@@ -58,6 +58,14 @@ class Store {
   getDestinationInfo(id) {
     return (id && id in this.data.destinationData) ? this.data.destinationData[id] : null;
   }
+
+  getImageList() {
+    return ['default-cover.webp', ...Object.keys(this.data.destinationData).map((i) => {
+      const {id, name} = this.data.destinationData[i];
+      console.log('c', name);
+      return `${name.toLowerCase().replace(' ', '-')}-${id}.webp`;
+    })];
+  }
 }
 
 export default Store;
