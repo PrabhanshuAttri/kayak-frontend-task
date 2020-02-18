@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "KAYAK internship UI task",
   "main": "server.js",
+  "engines": {
+    "node": "12.14.0"
+  },
   "scripts": {
     "start": "http-server -c31536000 ./solution",
     "build": "gulp",

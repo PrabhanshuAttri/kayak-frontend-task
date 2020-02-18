@@ -1,0 +1,8 @@
+{
+  "name": "kayak",
+  "description": "KAYAK internship UI task",
+  "repository": "https://github.com/PrabhanshuAttri/kayak-frontend-task",
+  "logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/master/public/node.svg",
+  "keywords": ["node", "express", "heroku"],
+  "image": "heroku/nodejs"
+}

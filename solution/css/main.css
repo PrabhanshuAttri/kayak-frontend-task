@@ -252,10 +252,17 @@ img.search-icon {
 }
 
 #banner-text {
+  display: flex;
   width: 50%;
   padding: 0 20px;
   font-size: 1.5rem;
   font-family: Forza, 'Helvetica Bold', Helvetica, Arial, sans-serif;
+}
+
+@media (max-width: 500px) {
+  main {
+    padding-bottom: 6.5rem;
+  }
 }
 
 @media (max-width: 767px) {
@@ -297,9 +304,6 @@ img.search-icon {
 @media (max-width: 1280px) {
   .container {
     width: 80%;
-  }
-  .banner {
-    background-position: center;
   }
 }
 
