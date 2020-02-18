@@ -11,7 +11,7 @@ const cleanCSS = require('gulp-clean-css');
 const baseDir = 'solution/';
 const paths = {
   src: {
-    css: `${baseDir}css/*css`,
+    css: [`${baseDir}css/normalize.css`, `${baseDir}css/main.css`],
     js: `${baseDir}js/**/*.js`,
     images: `${baseDir}assets/images/*.{jpg,png}`
   },
@@ -28,7 +28,7 @@ const images = () => gulp.src(paths.src.images)
 
 const css = () => gulp.src(paths.src.css)
 .pipe(sourcemaps.init())
-.pipe(cleanCSS({compatibility: '*'}))
+.pipe(cleanCSS({compatibility: '*', level: {1: {specialComments: 0}}}))
 .pipe(concat('styles.css'))
 .pipe(sourcemaps.write())
 .pipe(gulp.dest(paths.dist.css));
