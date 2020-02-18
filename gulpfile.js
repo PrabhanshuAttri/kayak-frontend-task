@@ -56,4 +56,5 @@ const copyFiles = () => gulp.src([
   `${baseDir}assets/**/*.json`,
   ]).pipe(gulp.dest(`${baseDir}dist/assets`));
 
+exports['heroku:production'] = gulp.parallel(images, css, js, copyFiles);
 exports.default = gulp.parallel(images, css, js, copyFiles);

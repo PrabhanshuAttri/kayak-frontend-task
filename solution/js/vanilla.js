@@ -3,6 +3,8 @@ import ElementClass from './modules/DropdownElement';
 
 const {DomElement, DropdownElement} = ElementClass;
 
+const apiUrl = '/dist/assets/tour-data.json';
+
 const isIEBrowser = () => {
   return (!document.attachEvent || typeof (document.attachEvent) === "undefined" ? false : true);
 }
@@ -12,7 +14,7 @@ const getAssetPath = (res) => {
 }
 
 const fetchData = async () => {
-  return fetch('/dist/assets/tour-data.json').then((response) => {
+  return fetch(apiUrl).then((response) => {
     if (response.status !== 200) {
       throw `Looks like there was a problem. Status Code: ${response.status}`;
     }
