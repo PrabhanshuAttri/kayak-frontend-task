@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'Forza';
-  src: url('Forza-Black.eot');
+  src: url('/dist/assets/forza-black.eot');
   src: local('Forza Black'), local('Forza-Black'),
-  url('Forza-Black.eot?#iefix') format('embedded-opentype'),
-  url('Forza-Black.woff') format('woff'),
-  url('Forza-Black.ttf') format('truetype'),
-  url('Forza-Black.woff2') format('woff2');
+  url('/dist/assets/forza-black.eot?#iefix') format('embedded-opentype'),
+  url('/dist/assets/forza-black.woff') format('woff'),
+  url('/dist/assets/forza-black.ttf') format('truetype'),
+  url('/dist/assets/forza-black.woff2') format('woff2');
   font-weight: 900;
   font-style: normal;
   font-display: swap;
