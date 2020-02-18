@@ -1,26 +1,20 @@
 import Store from './modules/Store';
 import ElementClass from './modules/DropdownElement';
 
-const {DomElement, DropdownElement} = ElementClass;
+const { DomElement, DropdownElement } = ElementClass;
 
 const apiUrl = '/dist/assets/tour-data.json';
 
-const isIEBrowser = () => {
-  return (!document.attachEvent || typeof (document.attachEvent) === "undefined" ? false : true);
-}
+const isIEBrowser = () => (!(!document.attachEvent || typeof (document.attachEvent) === 'undefined'));
 
-const getAssetPath = (res) => {
-  return `/dist/assets/images/${res}`;
-}
+const getAssetPath = (res) => `/dist/assets/images/${res}`;
 
-const fetchData = async () => {
-  return fetch(apiUrl).then((response) => {
-    if (response.status !== 200) {
-      throw `Looks like there was a problem. Status Code: ${response.status}`;
-    }
-    return response.json();
-  });
-}
+const fetchData = async () => fetch(apiUrl).then((response) => {
+  if (response.status !== 200) {
+    throw `Looks like there was a problem. Status Code: ${response.status}`;
+  }
+  return response.json();
+});
 
 const onPageLoad = () => {
   const loaderEle = new DomElement('loader');
@@ -36,7 +30,7 @@ const onPageLoad = () => {
     const categoryEle = new DropdownElement('category');
     const destinationEle = new DropdownElement('destination');
 
-    bannerEle.setStyle({backgroundImage: `url(${getAssetPath('default-cover.webp')})`});
+    bannerEle.setStyle({ backgroundImage: `url(${getAssetPath('default-cover.webp')})` });
     loaderEle.hide();
     contentEle.show();
 
@@ -53,42 +47,34 @@ const onPageLoad = () => {
     categoryEle.onChange((selectedValue) => {
       destinationEle.addOptions(store.getDestinations(selectedValue), {
         itemParser: (item) => {
-          if(item) {
+          if (item) {
             const { id, name, country } = item;
+
+            // prefetch images on category update
+            // reduces load time and improves user experience
             const img = new Image();
-            img.src = getAssetPath(`${name.toLowerCase().replace(' ', '-')}-${id}.webp`)
-            
+            img.src = getAssetPath(`${name.toLowerCase().replace(' ', '-')}-${id}.webp`);
+
             return {
               value: id,
               text: `${name}, ${country}`,
             };
           }
-        }
+          return item;
+        },
       });
     });
 
     destinationEle.onChange((selectedValue) => {
       const dest = store.getDestinationInfo(selectedValue);
-      if(dest) {
+      if (dest) {
         const { id, name, country } = dest;
         const bannerPath = getAssetPath(`${name.toLowerCase().replace(' ', '-')}-${id}.webp`);
         bannerTextEle.setText(`${name}, ${country}`);
-        bannerEle.setStyle({backgroundImage: `url(${bannerPath})`});
+        bannerEle.setStyle({ backgroundImage: `url(${bannerPath})` });
       }
     });
-
-    // prefetch images 
-    // disabling
-    /*
-    const prefetchImageArr = store.getImageList();
-    for(let i = 0; i < prefetchImageArr.length; i++) {
-      const img = new Image();
-      img.src = getAssetPath(prefetchImageArr[i]);
-    }
-    */
   }).catch((err) => {
-    console.error('err', err);
-
     const ele = document.createElement('h3');
     ele.innerHTML = err;
 
@@ -97,25 +83,23 @@ const onPageLoad = () => {
     loaderEle.hide();
     contentEle.show();
   });
-}
+};
 
-const addEventToDocument = (function(onPageLoad) {
-  if(onPageLoad && typeof (onPageLoad) === 'function'){
-    if(!isIEBrowser()) {
-      document.addEventListener("DOMContentLoaded", onPageLoad);
+const addEventToDocument = ((onPageLoad) => {
+  if (onPageLoad && typeof (onPageLoad) === 'function') {
+    if (!isIEBrowser()) {
+      document.addEventListener('DOMContentLoaded', onPageLoad);
     } else {
-      document.attachEvent("onreadystatechange", function() {
-        if(document.readyState === "complete") {
+      document.attachEvent('onreadystatechange', () => {
+        if (document.readyState === 'complete') {
           return onPageLoad();
         }
       });
     }
-  } else {
-    console.error('The callback is not a function!');
   }
-  return onPageLoad
+  return onPageLoad;
 });
 
-(function(document, window, addEventToDocument, undefined) {
-  addEventToDocument(onPageLoad);
-})(document, window, addEventToDocument);
+(function (document, window, addEventToDocumentMethod) {
+  addEventToDocumentMethod(onPageLoad);
+}(document, window, addEventToDocument));

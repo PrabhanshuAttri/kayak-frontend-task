@@ -8,15 +8,17 @@ class Store {
     const categoryDestinationsMapping = {};
     let seasonCategoriesMapping = {};
 
-    if(data) {
-      const { destinations, seasonCategories} = data;
+    if (data) {
+      const { destinations, seasonCategories } = data;
       seasonCategoriesMapping = seasonCategories;
 
-      for(let i = 0; i < destinations.length; i++) {
+      for (let i = 0; i < destinations.length; i += 1) {
         const item = destinations[i];
-        const { id, name, country, category } = item;
-        destinationData[id] = { id, name, country }
-        if(category in categoryDestinationsMapping) {
+        const {
+          id, name, country, category,
+        } = item;
+        destinationData[id] = { id, name, country };
+        if (category in categoryDestinationsMapping) {
           categoryDestinationsMapping[category].push(id);
         } else {
           categoryDestinationsMapping[category] = [id];
@@ -26,7 +28,7 @@ class Store {
     return ({
       destinationData,
       categoryDestinationsMapping,
-      seasonCategoriesMapping
+      seasonCategoriesMapping,
     });
   }
 
@@ -35,7 +37,7 @@ class Store {
   }
 
   getCategories(key) {
-    if(key && key in this.data.seasonCategoriesMapping) {
+    if (key && key in this.data.seasonCategoriesMapping) {
       return this.data.seasonCategoriesMapping[key];
     }
     return [];
@@ -43,11 +45,11 @@ class Store {
 
   getDestinations(key) {
     const destinations = [];
-    if(key && key in this.data.categoryDestinationsMapping) {
+    if (key && key in this.data.categoryDestinationsMapping) {
       const destinationsList = this.data.categoryDestinationsMapping[key];
-      for(let i = 0; i < destinationsList.length; i++) {
+      for (let i = 0; i < destinationsList.length; i += 1) {
         const dest = this.data.destinationData[destinationsList[i]];
-        if(dest) {
+        if (dest) {
           destinations.push(dest);
         }
       }
@@ -61,8 +63,7 @@ class Store {
 
   getImageList() {
     return ['default-cover.webp', ...Object.keys(this.data.destinationData).map((i) => {
-      const {id, name} = this.data.destinationData[i];
-      console.log('c', name);
+      const { id, name } = this.data.destinationData[i];
       return `${name.toLowerCase().replace(' ', '-')}-${id}.webp`;
     })];
   }

@@ -5,23 +5,23 @@ class DropdownElement extends DomElement {
     super(id);
     this.name = id.charAt(0).toUpperCase() + id.slice(1);
     this.addPlaceHolder(this.name);
-    this.setAttribute({ tabindex: 0})
+    this.setAttribute({ tabindex: 0 });
   }
 
   addOption(itemName, {
     value,
     isPlaceHolder,
-    attributes
+    attributes,
   } = {
     isPlaceHolder: false,
-    attributes: []
+    attributes: [],
   }) {
     const opt = document.createElement('option');
     opt.innerHTML = itemName;
-    if(isPlaceHolder) {
+    if (isPlaceHolder) {
       opt.selected = true;
       opt.disabled = true;
-      opt.value = "";
+      opt.value = '';
       opt.hidden = true;
     } else {
       opt.value = value || itemName;
@@ -32,18 +32,17 @@ class DropdownElement extends DomElement {
 
   addOptions(options, {
     itemParser,
-    onChange
   } = {
     itemParser: (item) => item,
   }) {
     this.removeAllOptions();
-    for(let i = 0; i < options.length; i++) {
+    for (let i = 0; i < options.length; i += 1) {
       const item = itemParser(options[i]);
       const itemName = typeof (item) === 'string' ? item : item.text;
       const value = typeof (item) === 'string' ? item : item.value;
-      this.addOption(itemName, { value, attributes: { ['data-value']: value }});
+      this.addOption(itemName, { value, attributes: { 'data-value': value } });
     }
-    if(options.length > 0) {
+    if (options.length > 0) {
       this.enable();
     }
   }
@@ -54,7 +53,7 @@ class DropdownElement extends DomElement {
 
   onChange(callback) {
     this.addEvent('change', (e) => {
-      const { target: { value }} = e;
+      const { target: { value } } = e;
       callback(value, e);
     });
   }
@@ -68,7 +67,7 @@ class DropdownElement extends DomElement {
   }
 
   removeAllOptions() {
-    for(let i = this.element.options.length - 1 ; i >= 0 ; i--) {
+    for (let i = this.element.options.length - 1; i >= 0; i -= 1) {
       this.element.remove(i);
     }
     this.addPlaceHolder(this.name);
@@ -78,5 +77,5 @@ class DropdownElement extends DomElement {
 
 export default {
   DomElement,
-  DropdownElement
+  DropdownElement,
 };

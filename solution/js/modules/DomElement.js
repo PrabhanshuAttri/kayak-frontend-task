@@ -24,7 +24,7 @@ class DomElement {
   }
 
   addEvent(event, callback) {
-    if(typeof (callback) === 'function') {
+    if (typeof (callback) === 'function') {
       this.element.addEventListener(event, callback);
     }
   }
@@ -34,7 +34,7 @@ class DomElement {
   }
 
   addChild(ch) {
-    this.element.appendChild(ch)
+    this.element.appendChild(ch);
   }
 
   removeContent() {
@@ -42,19 +42,19 @@ class DomElement {
   }
 
   setAttribute(attributes, element) {
-    const ele = element ? element : this.element;
-    if(attributes) {
+    const ele = element || this.element;
+    if (attributes) {
       const attributeKeys = Object.keys(attributes);
-      for(let i = 0; i < attributeKeys.length; i++) {
+      for (let i = 0; i < attributeKeys.length; i += 1) {
         ele.setAttribute(attributeKeys[i], attributes[attributeKeys[i]]);
       }
     }
   }
 
   setStyle(style) {
-    if(style) {
+    if (style) {
       const styleKeys = Object.keys(style);
-      for(let i = 0; i < styleKeys.length; i++) {
+      for (let i = 0; i < styleKeys.length; i += 1) {
         this.element.style[styleKeys[i]] = style[styleKeys[i]];
       }
     }
