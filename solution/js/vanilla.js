@@ -27,7 +27,7 @@ const getImagePath = (name = 'default-cover', id) => {
   if (id) {
     return getAssetPath(`${name.toLowerCase().replace(' ', '-')}-${id}.${ext}`);
   }
-  return getAssetPath('default-cover.webp');
+  return getAssetPath(`default-cover.${ext}`);
 };
 
 const fetchData = async () => fetch(apiUrl).then((response) => {
