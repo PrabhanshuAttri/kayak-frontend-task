@@ -200,7 +200,7 @@ option:checked, option:hover {
   background: #D9E1E8;
 }
 
-.search {
+.search-btn {
   cursor: pointer;
   -webkit-appearance: none;
   appearance: none;
@@ -214,7 +214,7 @@ option:checked, option:hover {
   background-image: linear-gradient(-225deg, #FF690F 0%, #E8381B 100%);
 }
 
-.search:hover {
+.search-btn:hover {
   background-image: linear-gradient(-225deg, #de5b0c 0%, #a7250f 100%);
 }
 
@@ -287,7 +287,7 @@ img.search-icon {
     margin-bottom: 0.5rem;
   }
 
-  .search {
+  .search-btn {
     width: 100%;
   }
 }
@@ -302,13 +302,18 @@ img.search-icon {
   .container {
     width: 80%;
   }
+
   .banner {
     max-height: 35rem;
   }
 }
 
-@media (min-width: 1281px) and (max-width: 1600px) {
+@media (min-width: 1281px) {
   .container {
     width: 70%;
+  }
+
+  .filters, .banner {
+    width: 80%;
   }
 }
