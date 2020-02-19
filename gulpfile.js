@@ -16,6 +16,12 @@ const paths = {
     js: `${baseDir}js/**/*.js`,
     imagesWebp: `${baseDir}assets/images/*.{jpg,png}`,
     imagesOrig: `${baseDir}assets/images/*.{jpg,png}`,
+    copyFiles: [
+    `${baseDir}assets/fonts/**/*`,
+    `${baseDir}assets/icons/**/*`,
+    `${baseDir}assets/**/*.svg`,
+    `${baseDir}assets/**/*.json`,
+    ]
   },
   dist: {
     css: `${baseDir}dist/css`,
@@ -26,18 +32,18 @@ const paths = {
 };
 
 const imagesWebp = () => gulp.src(paths.src.imagesWebp)
-  .pipe(webp())
-  .pipe(gulp.dest(paths.dist.imagesWebp));
+.pipe(webp())
+.pipe(gulp.dest(paths.dist.imagesWebp));
 
 const imagesOrig = () => gulp.src(paths.src.imagesOrig)
-  .pipe(gulp.dest(paths.dist.imagesOrig));
+.pipe(gulp.dest(paths.dist.imagesOrig));
 
 const css = () => gulp.src(paths.src.css)
-  .pipe(sourcemaps.init())
-  .pipe(cleanCSS({ compatibility: '*', level: { 1: { specialComments: 0 } } }))
-  .pipe(concat('styles.css'))
-  .pipe(sourcemaps.write())
-  .pipe(gulp.dest(paths.dist.css));
+.pipe(sourcemaps.init())
+.pipe(cleanCSS({ compatibility: '*', level: { 1: { specialComments: 0 } } }))
+.pipe(concat('styles.css'))
+.pipe(sourcemaps.write())
+.pipe(gulp.dest(paths.dist.css));
 
 const js = () => {
   const options = {
@@ -45,26 +51,31 @@ const js = () => {
   };
 
   return gulp.src(paths.src.js)
-    .pipe(sourcemaps.init())
-    .pipe(babel({
-      presets: ['@babel/env'],
-    }))
-    .pipe(webpackStream(options))
-    .pipe(strip())
-    .pipe(uglify())
-    .pipe(concat('vanilla.js'))
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(paths.dist.js));
+  .pipe(sourcemaps.init())
+  .pipe(babel({
+    presets: ['@babel/env'],
+  }))
+  .pipe(webpackStream(options))
+  .pipe(strip())
+  .pipe(uglify())
+  .pipe(concat('vanilla.js'))
+  .pipe(sourcemaps.write('.'))
+  .pipe(gulp.dest(paths.dist.js));
 };
 
-const copyFiles = () => gulp.src([
-  `${baseDir}assets/fonts/**/*`,
-  `${baseDir}assets/icons/**/*`,
-  `${baseDir}assets/**/*.svg`,
-  `${baseDir}assets/**/*.json`,
-]).pipe(gulp.dest(`${baseDir}dist/assets`));
+const copyFiles = () => gulp.src(paths.src.copyFiles).pipe(gulp.dest(`${baseDir}dist/assets`));
+
+const watch = () => {
+  gulp.watch(paths.src.css, css);
+  gulp.watch(paths.src.js, js);
+  gulp.watch(paths.src.imagesWebp, imagesWebp);
+  gulp.watch(paths.src.imagesOrig, imagesOrig);
+  gulp.watch(paths.src.copyFiles, copyFiles);
+}
 
 const gulpDefault = () => gulp.parallel(imagesWebp, imagesOrig, css, js, copyFiles);
+const gulpWatchDefault = () => gulp.parallel(imagesWebp, imagesOrig, css, js, copyFiles, watch);
 
 exports['heroku:production'] = gulpDefault();
+exports['watch'] = gulpWatchDefault();
 exports.default = gulpDefault();

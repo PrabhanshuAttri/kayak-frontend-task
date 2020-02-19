@@ -7,8 +7,8 @@
     "node": "12.14.0"
   },
   "scripts": {
-    "start": "http-server -c31536000 ./solution",
-    "build": "./node_modules/gulp/bin/gulp.js ",
+    "start": "./node_modules/gulp/bin/gulp.js watch & http-server -c31536000 ./solution",
+    "build": "./node_modules/gulp/bin/gulp.js",
     "deploy": "git push heroku master"
   },
   "repository": {
