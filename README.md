@@ -22,20 +22,20 @@ Create a page that allows users to select a destination from a form. Selectable 
   ![Lighthouse Audit Report - Mobile](/docs/lighthouse_mobile.png)
 
 ## Specifications
-[x] On page load (and before selection), the form fields should contain placeholders (season, category, destination).
-[x] While the form `<select>` element is styled, and used the native browser styles for dropdown menu containing the `<option>` elements (shown on click) due to time constraint.
-[x] The web page adheres to the given design.
-[x] Added fonts and browser support.
-[x] Added Semantic tags, SEO tags and accessibility.
-[x] Added responsiveness to the webpage.
-[x] Added favicons, Web App Manifest and a default image.
-[x] Added Babel, gulp and webpack.
-[x] Added WebP Images support.
-[x] Added prefetch functionality to reduce resource load time.
+- [x] On page load (and before selection), the form fields should contain placeholders (season, category, destination).
+- [x] While the form `<select>` element is styled, and used the native browser styles for dropdown menu containing the `<option>` elements (shown on click) due to time constraint.
+- [x] The web page adheres to the given design.
+- [x] Added fonts and browser support.
+- [x] Added Semantic tags, SEO tags and accessibility.
+- [x] Added responsiveness to the webpage.
+- [x] Added favicons, Web App Manifest and a default image.
+- [x] Added Babel, gulp and webpack.
+- [x] Added WebP Images support.
+- [x] Added prefetch functionality to reduce resource load time.
 
-  ## Getting Started
+## Getting Started
 
-  Run the following in the root of the directory
+Run the following in the root of the directory
 
   ```
   npm i
