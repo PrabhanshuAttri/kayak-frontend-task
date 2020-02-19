@@ -14,18 +14,23 @@ const paths = {
   src: {
     css: [`${baseDir}css/normalize.css`, `${baseDir}css/main.css`],
     js: `${baseDir}js/**/*.js`,
-    images: `${baseDir}assets/images/*.{jpg,png}`,
+    imagesWebp: `${baseDir}assets/images/*.{jpg,png}`,
+    imagesOrig: `${baseDir}assets/images/*.{jpg,png}`,
   },
   dist: {
     css: `${baseDir}dist/css`,
     js: `${baseDir}dist/js`,
-    images: `${baseDir}dist/assets/images`,
+    imagesWebp: `${baseDir}dist/assets/images`,
+    imagesOrig: `${baseDir}dist/assets/images`,
   },
 };
 
-const images = () => gulp.src(paths.src.images)
+const imagesWebp = () => gulp.src(paths.src.imagesWebp)
   .pipe(webp())
-  .pipe(gulp.dest(paths.dist.images));
+  .pipe(gulp.dest(paths.dist.imagesWebp));
+
+const imagesOrig = () => gulp.src(paths.src.imagesOrig)
+  .pipe(gulp.dest(paths.dist.imagesOrig));
 
 const css = () => gulp.src(paths.src.css)
   .pipe(sourcemaps.init())
@@ -59,7 +64,7 @@ const copyFiles = () => gulp.src([
   `${baseDir}assets/**/*.json`,
 ]).pipe(gulp.dest(`${baseDir}dist/assets`));
 
-const gulpDefault = () => gulp.parallel(images, css, js, copyFiles);
+const gulpDefault = () => gulp.parallel(imagesWebp, imagesOrig, css, js, copyFiles);
 
 exports['heroku:production'] = gulpDefault();
 exports.default = gulpDefault();

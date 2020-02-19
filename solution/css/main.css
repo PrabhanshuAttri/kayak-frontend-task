@@ -317,3 +317,17 @@ img.search-icon {
     width: 80%;
   }
 }
+
+.img {
+  background-size: cover;
+  width: 100px;
+  height: 100px;
+}
+
+.no-webp .img {
+  background-image: url('/dist/assets/images/default-cover.jpg');
+}
+
+.webp .img {
+  background-image: url('/dist/assets/images/default-cover.webp');
+}

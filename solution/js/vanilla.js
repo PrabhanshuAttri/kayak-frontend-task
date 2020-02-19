@@ -9,6 +9,27 @@ const isIEBrowser = () => (!(!document.attachEvent || typeof (document.attachEve
 
 const getAssetPath = (res) => `/dist/assets/images/${res}`;
 
+const canUseWebP = () => {
+  const elem = document.createElement('canvas');
+  if (elem.getContext && elem.getContext('2d')) {
+    // was able or not to get WebP representation
+    return elem.toDataURL('image/webp').indexOf('data:image/webp') == 0;
+  }
+  // very old browser like IE 8, canvas not supported
+  return false;
+};
+
+const getImageExtension = () => (canUseWebP() ? 'webp' : 'jpg');
+
+const getImagePath = (name = 'default-cover', id) => {
+  const ext = getImageExtension();
+  console.log('ext', ext);
+  if (id) {
+    return getAssetPath(`${name.toLowerCase().replace(' ', '-')}-${id}.${ext}`);
+  }
+  return getAssetPath('default-cover.webp');
+};
+
 const fetchData = async () => fetch(apiUrl).then((response) => {
   if (response.status !== 200) {
     throw `Looks like there was a problem. Status Code: ${response.status}`;
@@ -30,7 +51,7 @@ const onPageLoad = () => {
     const categoryEle = new DropdownElement('category');
     const destinationEle = new DropdownElement('destination');
 
-    bannerEle.setStyle({ backgroundImage: `url(${getAssetPath('default-cover.webp')})` });
+    bannerEle.setStyle({ backgroundImage: `url(${getImagePath()})` });
     loaderEle.hide();
     contentEle.show();
 
@@ -53,7 +74,7 @@ const onPageLoad = () => {
             // prefetch images on category update
             // reduces load time and improves user experience
             const img = new Image();
-            img.src = getAssetPath(`${name.toLowerCase().replace(' ', '-')}-${id}.webp`);
+            img.src = getImagePath(name, id);
 
             return {
               value: id,
@@ -69,9 +90,8 @@ const onPageLoad = () => {
       const dest = store.getDestinationInfo(selectedValue);
       if (dest) {
         const { id, name, country } = dest;
-        const bannerPath = getAssetPath(`${name.toLowerCase().replace(' ', '-')}-${id}.webp`);
         bannerTextEle.setText(`${name}, ${country}`);
-        bannerEle.setStyle({ backgroundImage: `url(${bannerPath})` });
+        bannerEle.setStyle({ backgroundImage: `url(${getImagePath(name, id)})` });
       }
     });
   }).catch((err) => {
