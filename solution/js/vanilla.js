@@ -11,19 +11,13 @@ const getAssetPath = (res) => `/dist/assets/images/${res}`;
 
 const canUseWebP = () => {
   const elem = document.createElement('canvas');
-  if (elem.getContext && elem.getContext('2d')) {
-    // was able or not to get WebP representation
-    return elem.toDataURL('image/webp').indexOf('data:image/webp') == 0;
-  }
-  // very old browser like IE 8, canvas not supported
-  return false;
+  return elem.getContext && elem.getContext('2d') && elem.toDataURL('image/webp').indexOf('data:image/webp') == 0;
 };
 
 const getImageExtension = () => (canUseWebP() ? 'webp' : 'jpg');
 
 const getImagePath = (name = 'default-cover', id) => {
   const ext = getImageExtension();
-  console.log('ext', ext);
   if (id) {
     return getAssetPath(`${name.toLowerCase().replace(' ', '-')}-${id}.${ext}`);
   }
@@ -41,6 +35,7 @@ const onPageLoad = () => {
   const loaderEle = new DomElement('loader');
   const contentEle = new DomElement('content');
   fetchData().then((data) => {
+    const preFetchArr = [];
     const store = new Store(data);
 
     const bannerEle = new DomElement('banner');
@@ -73,8 +68,11 @@ const onPageLoad = () => {
 
             // prefetch images on category update
             // reduces load time and improves user experience
-            const img = new Image();
-            img.src = getImagePath(name, id);
+            if(!preFetchArr.includes(id)) {
+              const img = new Image();
+              img.src = getImagePath(name, id);
+              preFetchArr.push(id);
+            }
 
             return {
               value: id,
