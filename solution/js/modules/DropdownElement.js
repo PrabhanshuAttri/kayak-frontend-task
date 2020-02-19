@@ -1,5 +1,11 @@
 import DomElement from './DomElement';
 
+/*
+* Note: native dropdown is used due to time constraint
+*/
+
+
+// dropdown element selector modal with dropdown specific functionalities
 class DropdownElement extends DomElement {
   constructor(id) {
     super(id);
@@ -8,6 +14,7 @@ class DropdownElement extends DomElement {
     this.setAttribute({ tabindex: 0 });
   }
 
+  // add single option to the selector
   addOption(itemName, {
     value,
     isPlaceHolder,
@@ -30,6 +37,7 @@ class DropdownElement extends DomElement {
     this.addChild(opt);
   }
 
+  // add multiple options
   addOptions(options, {
     itemParser,
   } = {
@@ -58,14 +66,23 @@ class DropdownElement extends DomElement {
     });
   }
 
+  getSelectedValue() {
+    return this.element.selectedIndex > 0
+    ? this.element.options[this.element.selectedIndex].value
+    : null;
+  }
+
+  // to enable a disabled dropdown selector
   enable() {
     this.element.disabled = false;
   }
 
+  // disable dropdown if previous dropdown isn't selected, as per specifications
   disable() {
     this.element.disabled = true;
   }
 
+  // clear dropdown options and disable it
   removeAllOptions() {
     for (let i = this.element.options.length - 1; i >= 0; i -= 1) {
       this.element.remove(i);

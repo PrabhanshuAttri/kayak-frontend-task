@@ -1,3 +1,5 @@
+// Document element selector modal with basic functionalities
+
 class DomElement {
   constructor(id) {
     this.element = document.getElementById(id);

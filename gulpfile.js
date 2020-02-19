@@ -71,6 +71,7 @@ const watch = () => {
   gulp.watch(paths.src.imagesWebp, imagesWebp);
   gulp.watch(paths.src.imagesOrig, imagesOrig);
   gulp.watch(paths.src.copyFiles, copyFiles);
+  return;
 }
 
 const gulpDefault = () => gulp.parallel(imagesWebp, imagesOrig, css, js, copyFiles);

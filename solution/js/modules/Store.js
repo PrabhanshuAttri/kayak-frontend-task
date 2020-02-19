@@ -1,8 +1,11 @@
+// modal to maintain data in memory or in localstorage
+// due to time constrains localstorage was not added
 class Store {
   constructor(data) {
     this.data = this.parseData(data);
   }
 
+  // parse data before saving
   parseData(data) {
     const destinationData = {};
     const categoryDestinationsMapping = {};
@@ -57,15 +60,9 @@ class Store {
     return destinations;
   }
 
+  // single destination getter
   getDestinationInfo(id) {
     return (id && id in this.data.destinationData) ? this.data.destinationData[id] : null;
-  }
-
-  getImageList() {
-    return ['default-cover.webp', ...Object.keys(this.data.destinationData).map((i) => {
-      const { id, name } = this.data.destinationData[i];
-      return `${name.toLowerCase().replace(' ', '-')}-${id}.webp`;
-    })];
   }
 }
 
